@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class AtividadesComplementares {
 
-    private int[] estagios = new int[4];
+    private int[] horasEstagios = new int[4];
+    private int[] mesesEstagios = new int[4];
     private int[] projetos = new int[16];
     private ArrayList<Double> cursos = new ArrayList<Double>();
 
@@ -15,9 +16,20 @@ public class AtividadesComplementares {
      * @param horas
      */
     public void adicionarEstagio(int horas) {
-        for (int i = 0; i < this.estagios.length; i++) {
-            if (this.estagios[i] == 0) {
-                this.estagios[i] = horas;
+        for (int i = 0; i < this.horasEstagios.length; i++) {
+            if (this.horasEstagios[i] == 0) {
+                this.horasEstagios[i] = horas;
+                this.mesesEstagios[i] = 4;
+                break;
+            }
+        }
+    }
+
+    public void adicionarEstagio(int horas, int meses) {
+        for (int i = 0; i < this.horasEstagios.length; i++) {
+            if (this.horasEstagios[i] == 0) {
+                this.horasEstagios[i] = horas;
+                this.mesesEstagios[i] = meses;
                 break;
             }
         }
@@ -36,15 +48,7 @@ public class AtividadesComplementares {
         this.cursos.add(horas);
     }
 
-    private int pegaHorasEstagio() {
-        int horasEstagio = 0;
-        for (int estagio : this.estagios) {
-            horasEstagio += estagio;
-        }
-        return horasEstagio;
-    }
-
-    private int pegaMesesProjeto() {
+    private int pegaTotalMesesProjeto() {
         int mesesProjeto = 0;
         for (int projeto : this.projetos) {
             mesesProjeto += projeto;
@@ -52,7 +56,7 @@ public class AtividadesComplementares {
         return mesesProjeto;
     }
 
-    private double pegaHorasCursos() {
+    private double pegaTotalHorasCursos() {
         double horasCursos = 0;
         for (double curso : this.cursos) {
             horasCursos += curso;
@@ -61,24 +65,36 @@ public class AtividadesComplementares {
     }
 
     private int calculaCreditosEstagio() {
-        final int HORAS = 300;
+        final int HORAS_NECESSARIAS = 300;
+        final int MESES_NECESSARIOS = 4;
         final int CREDITOS = 5;
-        int horasEstagio = pegaHorasEstagio();
-        return (horasEstagio / HORAS) * CREDITOS;
+        int somaPontos = 0;
+
+        for (int i = 0; i < horasEstagios.length; i++) {
+            int pontosHoras = horasEstagios[i] / HORAS_NECESSARIAS;
+            int pontosMeses = mesesEstagios[i] / MESES_NECESSARIOS;
+            if (pontosHoras < pontosMeses) {
+                somaPontos += pontosHoras;
+            } else {
+                somaPontos += pontosMeses;
+            }
+        }
+        int totalCreditos = somaPontos * CREDITOS;
+        return totalCreditos;
 
     }
 
     private int calculaCreditosProjeto() {
         final int MESES = 3;
         final int CREDITOS = 2;
-        int mesesProjeto = pegaMesesProjeto();
+        int mesesProjeto = pegaTotalMesesProjeto();
         return (mesesProjeto / MESES) * CREDITOS;
     }
 
     private int calculaCreditosCursos() {
         final int HORAS = 30;
         final int CREDITOS = 1;
-        double horasCursos = pegaHorasCursos();
+        double horasCursos = pegaTotalHorasCursos();
         return (int) (horasCursos / HORAS) * CREDITOS;
     }
 
@@ -89,7 +105,7 @@ public class AtividadesComplementares {
     public String[] pegaAtividades() {
         ArrayList<String> atividades = new ArrayList<>();
 
-        for (int estagio : this.estagios) {
+        for (int estagio : this.horasEstagios) {
             boolean atingiuUltimoEstagioAdicionado = estagio == 0;
             if (atingiuUltimoEstagioAdicionado) {
                 break;
@@ -103,7 +119,7 @@ public class AtividadesComplementares {
             }
             atividades.add("Projeto " + projeto);
         }
-        atividades.add("Cursos " + pegaHorasCursos());
+        atividades.add("Cursos " + pegaTotalHorasCursos());
 
         atividades.add("Creditos_Estagio " + calculaCreditosEstagio());
         atividades.add("Creditos_Projeto " + calculaCreditosProjeto());

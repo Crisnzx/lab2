@@ -58,13 +58,13 @@ public class MenuDescanso {
   }
 
   private static void printarStatusGeral() {
-    System.out.println(MenuDescanso.descanso.getStatusGeral());
+    System.out.println(descanso.getStatusGeral());
   }
 
   private static void definirEmoji() {
     System.out.print("Emoji: ");
     String emoji = sc.nextLine();
-    MenuDescanso.descanso.definirEmoji(emoji);
+    descanso.definirEmoji(emoji);
   }
 
   private static void atualizarHorasDescanso() {
