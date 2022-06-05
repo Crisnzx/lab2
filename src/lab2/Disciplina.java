@@ -30,26 +30,12 @@ public class Disciplina {
         this.pesoNotas = pesoNotas;
     }
 
-    private double calculaMedia() {
-        double somaNotas = 0;
-        int somaPeso = 0;
-        for (int i = 0; i < notas.length; i++) {
-            somaNotas += (notas[i] * pesoNotas[i]);
-        }
-
-        for (int pesoNota : pesoNotas) {
-            somaPeso += pesoNota;
-        }
-
-        return somaNotas / somaPeso;
-    }
-
     public void cadastraHoras(int horas) {
         this.horasEstudo += horas;
     }
 
     public void cadastraNota(int nota, double valorNota) {
-        notas[nota - 1] = valorNota;
+        this.notas[nota - 1] = valorNota;
         calculaMedia();
     }
 
@@ -59,6 +45,20 @@ public class Disciplina {
 
     public String toString() {
         return this.nome + " " + this.horasEstudo + " " + calculaMedia() + " " + Arrays.toString(this.notas);
+    }
+
+    private double calculaMedia() {
+        double somaNotas = 0;
+        int somaPeso = 0;
+        for (int i = 0; i < this.notas.length; i++) {
+            somaNotas += (this.notas[i] * this.pesoNotas[i]);
+        }
+
+        for (int pesoNota : this.pesoNotas) {
+            somaPeso += pesoNota;
+        }
+
+        return somaNotas / somaPeso;
     }
 
 }

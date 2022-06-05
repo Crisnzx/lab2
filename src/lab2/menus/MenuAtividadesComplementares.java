@@ -28,29 +28,33 @@ public class MenuAtividadesComplementares {
       Menu.mostrarMenu(OPCOES_MENU);
       String acaoUsuario = sc.nextLine();
       Menu.printarEspacamento();
+      try {
 
-      switch (acaoUsuario) {
-        case "1":
-          adicionarEstagio();
-          break;
-        case "2":
-          adicionarProjeto();
-          break;
-        case "3":
-          adicionarCurso();
-          break;
-        case "4":
-          exibirQuantidadeCreditos();
-          break;
-        case "5":
-          exibirTodasAtividades();
-          break;
-        case "6":
-          // Voltar para o menu principal
-          return;
-        default:
-          System.out.println("Entrada inválida");
-          break;
+        switch (acaoUsuario) {
+          case "1":
+            adicionarEstagio();
+            break;
+          case "2":
+            adicionarProjeto();
+            break;
+          case "3":
+            adicionarCurso();
+            break;
+          case "4":
+            exibirQuantidadeCreditos();
+            break;
+          case "5":
+            exibirTodasAtividades();
+            break;
+          case "6":
+            // Voltar para o menu principal
+            return;
+          default:
+            System.out.println("Entrada inválida");
+            break;
+        }
+      } catch (Exception e) {
+        System.out.println("Entrada inválida");
       }
 
     }

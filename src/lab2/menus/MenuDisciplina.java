@@ -27,25 +27,29 @@ public class MenuDisciplina {
       Menu.mostrarMenu(OPCOES_MENU);
       String acaoUsuario = sc.nextLine();
       Menu.printarEspacamento();
+      try {
+        switch (acaoUsuario) {
+          case "1":
+            cadastrarHorasEstudo();
+            break;
+          case "2":
+            cadastrarNota();
+            break;
+          case "3":
+            checarEstaAprovado();
+            break;
+          case "4":
+            exibirInformacoes();
+            break;
+          case "5":
+            return;
+          default:
+            System.out.println("Entrada inválida");
+            break;
+        }
+      } catch (Exception e) {
+        System.out.println("Entrada inválida");
 
-      switch (acaoUsuario) {
-        case "1":
-          cadastrarHorasEstudo();
-          break;
-        case "2":
-          cadastrarNota();
-          break;
-        case "3":
-          checarEstaAprovado();
-          break;
-        case "4":
-          exibirInformacoes();
-          break;
-        case "5":
-          return;
-        default:
-          System.out.println("Entrada inválida");
-          break;
       }
     }
   }

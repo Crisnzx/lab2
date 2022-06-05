@@ -9,12 +9,6 @@ public class AtividadesComplementares {
     private int[] projetos = new int[16];
     private ArrayList<Double> cursos = new ArrayList<Double>();
 
-    /**
-     * Há um limite de quantidade de estágios, se o array estiver cheio, o dado não
-     * é adicionado.
-     *
-     * @param horas
-     */
     public void adicionarEstagio(int horas) {
         for (int i = 0; i < this.horasEstagios.length; i++) {
             if (this.horasEstagios[i] == 0) {
@@ -48,56 +42,6 @@ public class AtividadesComplementares {
         this.cursos.add(horas);
     }
 
-    private int pegaTotalMesesProjeto() {
-        int mesesProjeto = 0;
-        for (int projeto : this.projetos) {
-            mesesProjeto += projeto;
-        }
-        return mesesProjeto;
-    }
-
-    private double pegaTotalHorasCursos() {
-        double horasCursos = 0;
-        for (double curso : this.cursos) {
-            horasCursos += curso;
-        }
-        return horasCursos;
-    }
-
-    private int calculaCreditosEstagio() {
-        final int HORAS_NECESSARIAS = 300;
-        final int MESES_NECESSARIOS = 4;
-        final int CREDITOS = 5;
-        int somaPontos = 0;
-
-        for (int i = 0; i < horasEstagios.length; i++) {
-            int pontosHoras = horasEstagios[i] / HORAS_NECESSARIAS;
-            int pontosMeses = mesesEstagios[i] / MESES_NECESSARIOS;
-            if (pontosHoras < pontosMeses) {
-                somaPontos += pontosHoras;
-            } else {
-                somaPontos += pontosMeses;
-            }
-        }
-        int totalCreditos = somaPontos * CREDITOS;
-        return totalCreditos;
-
-    }
-
-    private int calculaCreditosProjeto() {
-        final int MESES = 3;
-        final int CREDITOS = 2;
-        int mesesProjeto = pegaTotalMesesProjeto();
-        return (mesesProjeto / MESES) * CREDITOS;
-    }
-
-    private int calculaCreditosCursos() {
-        final int HORAS = 30;
-        final int CREDITOS = 1;
-        double horasCursos = pegaTotalHorasCursos();
-        return (int) (horasCursos / HORAS) * CREDITOS;
-    }
-
     public int contaCreditos() {
         return calculaCreditosEstagio() + calculaCreditosProjeto() + calculaCreditosCursos();
     }
@@ -126,6 +70,56 @@ public class AtividadesComplementares {
         atividades.add("Creditos_Cursos " + calculaCreditosCursos());
 
         return atividades.toArray(new String[0]);
+    }
+
+    private int calculaCreditosEstagio() {
+        final int HORAS_NECESSARIAS = 300;
+        final int MESES_NECESSARIOS = 4;
+        final int CREDITOS = 5;
+        int somaPontos = 0;
+
+        for (int i = 0; i < this.horasEstagios.length; i++) {
+            int pontosHoras = this.horasEstagios[i] / HORAS_NECESSARIAS;
+            int pontosMeses = this.mesesEstagios[i] / MESES_NECESSARIOS;
+            if (pontosHoras < pontosMeses) {
+                somaPontos += pontosHoras;
+            } else {
+                somaPontos += pontosMeses;
+            }
+        }
+        int totalCreditos = somaPontos * CREDITOS;
+        return totalCreditos;
+
+    }
+
+    private int calculaCreditosProjeto() {
+        final int MESES = 3;
+        final int CREDITOS = 2;
+        int mesesProjeto = pegaTotalMesesProjeto();
+        return (mesesProjeto / MESES) * CREDITOS;
+    }
+
+    private int calculaCreditosCursos() {
+        final int HORAS = 30;
+        final int CREDITOS = 1;
+        double horasCursos = pegaTotalHorasCursos();
+        return (int) (horasCursos / HORAS) * CREDITOS;
+    }
+
+    private int pegaTotalMesesProjeto() {
+        int mesesProjeto = 0;
+        for (int projeto : this.projetos) {
+            mesesProjeto += projeto;
+        }
+        return mesesProjeto;
+    }
+
+    private double pegaTotalHorasCursos() {
+        double horasCursos = 0;
+        for (double curso : this.cursos) {
+            horasCursos += curso;
+        }
+        return horasCursos;
     }
 
 }

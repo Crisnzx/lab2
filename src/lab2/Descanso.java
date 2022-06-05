@@ -8,10 +8,6 @@ public class Descanso {
     private String emoji;
     private String estado = "cansado";
 
-    public Descanso() {
-
-    }
-
     public void definirEmoji(String valor) {
         this.emoji = valor;
     }
@@ -24,15 +20,8 @@ public class Descanso {
         this.numeroSemanas = numeroSemanas;
     }
 
-    private String tratarEmoji() {
-        if (this.emoji != null) {
-            return " - " + this.emoji;
-        }
-        return "";
-    }
-
     public String getStatusGeral() {
-        double horasDescansoPorSemana = horasDescanso / numeroSemanas;
+        double horasDescansoPorSemana = this.horasDescanso / this.numeroSemanas;
         boolean estaCansado = horasDescansoPorSemana < IDEAL_HORAS_DESCANSO_POR_SEMANA;
 
         if (estaCansado && this.estado.equals("descansado")) {
@@ -46,6 +35,13 @@ public class Descanso {
         }
 
         return this.estado + tratarEmoji();
+    }
+
+    private String tratarEmoji() {
+        if (this.emoji != null) {
+            return " - " + this.emoji;
+        }
+        return "";
     }
 
 }

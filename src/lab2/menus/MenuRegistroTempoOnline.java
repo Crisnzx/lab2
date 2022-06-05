@@ -27,22 +27,26 @@ public class MenuRegistroTempoOnline {
       Menu.mostrarMenu(OPCOES_MENU);
       String acaoUsuario = sc.nextLine();
       Menu.printarEspacamento();
+      try {
+        switch (acaoUsuario) {
+          case "1":
+            adicionarTempoOnline();
+            break;
+          case "2":
+            verificarSeAtingiuMetaTempoOnline();
+            break;
+          case "3":
+            exibirInformacoes();
+            break;
+          case "4":
+            return;
+          default:
+            System.out.println("Entrada inválida");
+            break;
+        }
+      } catch (Exception e) {
+        System.out.println("Entrada inválida");
 
-      switch (acaoUsuario) {
-        case "1":
-          adicionarTempoOnline();
-          break;
-        case "2":
-          verificarSeAtingiuMetaTempoOnline();
-          break;
-        case "3":
-          exibirInformacoes();
-          break;
-        case "4":
-          return;
-        default:
-          System.out.println("Entrada inválida");
-          break;
       }
     }
   }
